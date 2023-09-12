@@ -1,0 +1,92 @@
+<div *ngIf="signupSuccess; then verifyUser else signupForm"></div>
+<ng-template #signupForm>
+    <div class="signup d-flex flex-column justify-content-center align-items-center mt-5">
+        <h2>Signup</h2>
+        <form class="signup-form d-flex flex-column p-4" [formGroup]="signup" (ngSubmit)="onSubmit()">
+            <div class="name my-2 d-flex flex-column">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-user"></i>
+                    <input pInputText placeholder="Name" formControlName="name" name="name" />
+                </span>
+                <div *ngIf="signup.get('name').hasError('required') && signup.get('name').touched" class="text-danger">
+                    Name is required.
+                </div>
+            </div>
+            <div class="email my-2 d-flex flex-column">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-envelope"></i>
+                    <input pInputText type="email" placeholder="Email" formControlName="email" name="email" />
+                </span>
+                <div *ngIf="signup.get('email').hasError('required') && signup.get('email').touched"
+                    class="text-danger">
+                    Email is required.
+                </div>
+                <div *ngIf="signup.get('email').hasError('email') && signup.get('email').touched" class="text-danger">
+                    Invalid email format.
+                </div>
+            </div>
+            <div class="phone my-2 d-flex flex-column">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-phone"></i>
+                    <input pInputText placeholder="Phone number" formControlName="phoneNumber" name="phoneNumber" />
+                </span>
+                <div *ngIf="signup.get('phoneNumber').hasError('required') && signup.get('phoneNumber').touched"
+                    class="text-danger">
+                    Phone number is required.
+                </div>
+                <div *ngIf="signup.get('phoneNumber').hasError('pattern') && signup.get('phoneNumber').touched"
+                    class="text-danger">
+                    Phone number must consist of exactly 10 digits.
+                </div>
+            </div>
+            <div class="password my-2">
+                <p-password [feedback]="false" [toggleMask]="true" formControlName="password"
+                    placeholder="Password"></p-password>
+                <div *ngIf="signup.get('password').hasError('required') && signup.get('password').touched"
+                    class="text-danger">
+                    Password is required.
+                </div>
+                <div *ngIf="signup.get('password').hasError('minlength') && signup.get('password').touched"
+                    class="text-danger">
+                    Password must be at least 8 characters long.
+                </div>
+                <div style="max-width: 320px;"
+                    *ngIf="signup.get('password').hasError('passwordStrength') && signup.get('password').touched"
+                    class="d-flex flex-wrap text-danger">
+                    Password must contain at least one lowercase letter, one uppercase letter, one digit, and one
+                    special
+                    character.
+                </div>
+            </div>
+            <div class="confirm-password my-2">
+                <p-password [feedback]="false" formControlName="confirmPassword"
+                    placeholder="Confirm Password"></p-password>
+                <div *ngIf="signup.get('confirmPassword').hasError('required') && signup.get('confirmPassword').touched"
+                    class="text-danger">
+                    Confirm Password is required.
+                </div>
+                <div *ngIf="signup.hasError('passwordMismatch') && signup.get('confirmPassword').touched"
+                    class="text-danger">
+                    Passwords do not match.
+                </div>
+            </div>
+            <div class="submit-button my-2">
+                <button type="submit" class="submit-btn btn btn-primary fw-bold"
+                    [disabled]="signup.invalid">Signup</button>
+            </div>
+        </form>
+        <p class="py-2 redirect">Already registered? <span class="text-primary link" routerLink="/auth/login">Log In</span>
+        </p>
+    </div>
+</ng-template>
+
+<ng-template #verifyUser>
+    <div class="verify-user d-flex justify-content-center mt-5">
+        <form class="verification-form d-flex flex-column p-4" [formGroup]="verificationForm" (ngSubmit)="verifyCode()">
+            <label for="verification">Enter Verification Code</label>
+            <input type="text" pInputText placeholder="Code" name="verification" class="my-2 code-input" formControlName="code"  />
+            <button class="submit-btn btn btn-primary" [disabled]="verificationForm.invalid" type="submit">Verify</button>
+            <p class="resend text-primary text-center mb-0 py-2" (click)="resendCode()">Resend code</p>
+        </form>
+    </div>
+</ng-template>

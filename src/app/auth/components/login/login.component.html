@@ -1,0 +1,33 @@
+<div class="d-flex flex-column justify-content-center align-items-center mt-5 login">
+    <h2 class="py-2">Log in</h2>
+    <form [formGroup]="login" (ngSubmit)="onSubmit()" class="d-flex flex-column login-form p-4">
+        <div class="username my-2 d-flex flex-column">
+            <span class="p-input-icon-right">
+                <i class="pi pi-user"></i>
+                <input pInputText placeholder="Email" formControlName="username" name="username" />
+            </span>
+            <div *ngIf="login.get('username').hasError('required') && login.get('username').touched" class="text-danger">
+                Username is required.
+            </div>
+            <div *ngIf="login.get('username').hasError('email') && login.get('username').touched" class="text-danger">
+                Invalid email.
+            </div>
+        </div>
+        <div class="password my-2">
+            <p-password [feedback]="false" [toggleMask]="true" formControlName="password"
+                placeholder="Password"></p-password>
+            <div *ngIf="login.get('password').hasError('required') && login.get('password').touched" class="text-danger">
+                Password is required.
+            </div>
+            <div *ngIf="login.get('password').hasError('minlength') && login.get('password').touched" class="text-danger">
+                Password must be at least 8 characters long.
+            </div>
+        </div>
+        <div class="submit-button my-2">
+            <button type="submit" class="submit-btn btn btn-primary fw-bold" [disabled]="login.invalid">Login</button>
+        </div>
+    </form>
+    <p class="py-2 redirect mb-0">Not a registered user? <span class="text-primary link" routerLink="/auth/signup">Sign Up</span>
+    </p>
+    <p class="forgot text-primary mb-0" routerLink="/auth/reset-password">Forgot Password?</p>
+</div>

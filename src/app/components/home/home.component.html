@@ -1,0 +1,16 @@
+<div class="d-flex flex-column align-items-center pt-5 mt-5">
+    <div class="name d-flex">
+        <p class="fw-bold">Name: </p>
+        <p>&nbsp;{{userInfo?.name}}</p>
+    </div>
+    <div class="email d-flex">
+        <p class="fw-bold">Email: </p>
+        <p>&nbsp;{{userInfo?.email}}</p>
+    </div>
+    <div class="phone d-flex">
+        <p class="fw-bold">Phone Number:</p>
+        <p>&nbsp;{{userInfo?.phone_number}}</p>
+    </div>
+    <button class="btn btn-danger my-1 fw-bold" (click)="logout()">Logout</button>
+    <button class="btn btn-warning my-1 fw-bold" routerLink="auth/change-password">Change Password</button>
+</div>

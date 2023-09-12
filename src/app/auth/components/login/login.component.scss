@@ -1,0 +1,49 @@
+.login {
+    .redirect{
+        .link{
+            cursor: pointer;
+        }
+    }
+    .forgot{
+        cursor: pointer;
+    }
+    .login-form {
+
+        border: 1px solid black;
+        border-radius: 16px;
+        width: fit-content;
+
+        .submit-button {
+            width: 100%;
+
+            .submit-btn {
+                width: 100%;
+            }
+        }
+
+        .username {
+            .p-input-icon-right {
+                width: 320px;
+
+                input {
+                    width: inherit;
+                }
+            }
+        }
+
+        ::ng-deep {
+            .password {
+                p-password {
+                    .p-password {
+                        width: 320px;
+
+                        .p-password-input {
+                            width: inherit;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
